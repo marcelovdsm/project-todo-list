@@ -14,15 +14,14 @@ export const Task = () => {
           <div className={styles.taskHeader}>
             <p>Tarefas criadas <span>0</span></p>
             <p>Tarefas concluídas <span>0</span></p>
-        </div>
+          </div>
 
-        <div className={styles.emptyTaskList}>
-          <ClipboardText size={70} weight="bold" />
-          <p><strong>Você ainda não tem tarefas cadastradas</strong></p>
-          <p>Crie tarefas e organize seus itens a fazer</p>
+          <div className={styles.emptyTaskList} isVisible={true}>
+            <ClipboardText size={70} weight="bold" />
+            <p><strong>Você ainda não tem tarefas cadastradas</strong></p>
+            <p>Crie tarefas e organize seus itens a fazer</p>
+          </div>
         </div>
-      </div>
-       
       </div>
 
     </article>
