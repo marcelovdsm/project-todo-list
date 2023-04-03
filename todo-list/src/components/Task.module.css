@@ -89,5 +89,48 @@
   color: var(--gray-300);
 }
 
+.taskList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
 
+.tasks {
+  display: flex;
+  align-items:center;
+  background: var(--gray-400);
+  color: var(--gray-100);
+  width: 46rem;
+  height: auto;
+  padding: 1rem;
+  border-radius: 8px;
+  gap: 0.75rem;
+}
+
+.tasks input[type="checkbox"]{
+  appearance: none;
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 2px solid var(--blue);
+  border-radius: 999px;
+}
+
+.tasks input[type="checkbox"]:checked {
+  background: var(--purple-dark);
+  border: 2px solid var(--purple-dark);
+  
+}
+
+.tasks p {
+  width: 40rem;
+}
+
+.trash {
+  color: var(--gray-300);
+}
+
+.trash:hover {
+  color: var(--danger);
+}
 
