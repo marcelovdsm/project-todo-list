@@ -4,34 +4,35 @@ import { PlusCircle, ClipboardText, Trash } from "phosphor-react"
 
 
 
-export const Task = () => {
+export const Task = ({ content }) => {
 
   interface tasks {
   id: number
   content: string
-  done: boolean
   }
 
   const [tasks, setTasks] = useState([
     {
       id: 1,
-      content: 'Lavar o carro',
-      done: false
+      content: content,
     },
     {
       id: 2,
       content: 'Estudar',
-      done: false
     },
     {
       id: 3,
       content: 'Beber água',
-      done: true
     }
   ])
 
   function handleAddNewTask() {
-    
+    event.preventDefault()
+
+    const newTaskText = event.target
+
+    setTasks([...tasks, newTaskText])
+
   }
 
   function taskList(tasks:Array<tasks>) {
@@ -61,14 +62,13 @@ export const Task = () => {
     }
   }
 
-
   
   return(
     <article className={styles.task}>
-      <div className={styles.addTask}>
-        <input type="text" placeholder="Adicione uma nova tarefa"/>
+      <form className={styles.addTask} onSubmit={handleAddNewTask}>
+        <input type="text" name="task" placeholder="Adicione uma nova tarefa"/>
         <button>Criar <PlusCircle size={16} weight="bold"/></button>
-      </div>
+      </form>
 
       <div className={styles.taskMain}>
         <div className={styles.task}>
