@@ -1,28 +1,38 @@
-import { ObjectHTMLAttributes } from 'react'
+import { useState } from 'react'
 import styles from './Task.module.css'
 import { PlusCircle, ClipboardText, Trash } from "phosphor-react"
 
+
+
 export const Task = () => {
 
-interface tasks {
+  interface tasks {
   id: number
   content: string
-}
+  done: boolean
+  }
 
-  const tasks = [
+  const [tasks, setTasks] = useState([
     {
       id: 1,
-      content: 'Lavar o carro'
+      content: 'Lavar o carro',
+      done: false
     },
     {
       id: 2,
-      content: 'Estudar'
+      content: 'Estudar',
+      done: false
     },
     {
       id: 3,
-      content: 'Beber água'
+      content: 'Beber água',
+      done: true
     }
-  ]
+  ])
+
+  function handleAddNewTask() {
+    
+  }
 
   function taskList(tasks:Array<tasks>) {
     if(tasks.length > 0) {
@@ -31,11 +41,11 @@ interface tasks {
           {tasks.map((task, i) => {
             i = task.id
             return (
-              <div key={i} className={styles.tasks}>
+              <form key={i} className={styles.tasks}>
                 <input type="checkbox" />
                 <p key={i}>{task.content}</p>
-                <Trash className={styles.trash}/>
-              </div>
+                <Trash size={20} className={styles.trash}/>
+              </form>
             )
           })}
         </div>
@@ -50,6 +60,8 @@ interface tasks {
       )
     }
   }
+
+
   
   return(
     <article className={styles.task}>

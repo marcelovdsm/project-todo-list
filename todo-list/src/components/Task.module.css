@@ -108,13 +108,22 @@
   gap: 0.75rem;
 }
 
+.tasks[done=true]{
+  text-decoration-line: line-through;
+}
+
 .tasks input[type="checkbox"]{
   appearance: none;
   width: 1.2rem;
   height: 1.2rem;
   border: 2px solid var(--blue);
   border-radius: 999px;
-  transition: 0.05s;
+  transition: .2s;
+}
+
+.tasks input[type="checkbox"]:hover {
+  border: 2px solid var(--blue-dark);
+  background: var(--blue-opa);
 }
 
 .tasks input[type="checkbox"]:checked {
@@ -123,15 +132,31 @@
   background-position: center;
 }
 
+.tasks input[type="checkbox"]:checked:hover{
+  background-color: var(--purple);
+  border: 2px solid var(--purple);
+}
+
+.tasks:has(input:checked) {
+ color: var(--gray-300); 
+ text-decoration-line: line-through;
+}
+
 .tasks p {
   width: 40rem;
 }
 
 .trash {
   color: var(--gray-300);
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0.3rem;
+  transition: .2s;
 }
 
 .trash:hover {
   color: var(--danger);
+  background: var(--gray-500);
+  border-radius: 4px;
 }
 
