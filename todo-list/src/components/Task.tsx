@@ -29,7 +29,9 @@ export const Task = ({ content }) => {
 
     const newTaskText = event.target.task.value
 
-    setTasks(newTaskText)
+    console.log(newTaskText)
+
+    setTasks([...tasks, newTaskText])
   }
 
   function taskList(tasks:Array<tasks>, content:string) {
@@ -37,10 +39,11 @@ export const Task = ({ content }) => {
     if(tasks.length > 0) {
       return(
         <div className={styles.taskList}>
-          {tasks.map((task) => {
-            content = task.content
+          {tasks.map((task, i) => {
+            content = handleAddNewTask
+            i = task.id
             return (
-              <form className={styles.tasks}>
+              <form key={i} className={styles.tasks}>
                 <input type="checkbox" />
                 <p>{content}</p>
                 <Trash size={20} className={styles.trash}/>
