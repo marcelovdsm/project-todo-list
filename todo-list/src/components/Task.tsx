@@ -2,12 +2,14 @@ import { ChangeEvent, useState } from 'react'
 import styles from './Task.module.css'
 import { PlusCircle, ClipboardText, Trash } from "phosphor-react"
 
-export const Task = ({ content }) => {
+export const Task = () => {
 
   interface tasks {
   id: number
   content: string
   }
+
+  const [inputValue, setInputValue] = useState<any>("")
 
   let [tasks, setTasks] = useState([
     {
@@ -25,27 +27,22 @@ export const Task = ({ content }) => {
   ])
 
   function handleAddNewTask() {
-    event.preventDefault()
+    setTasks([...tasks, { id: tasks.length, content: inputValue }])
 
-    const newTaskText = event.target.task.value
-
-    console.log(newTaskText)
-
-    setTasks([...tasks, newTaskText])
+    setInputValue("")
   }
 
-  function taskList(tasks:Array<tasks>, content:string) {
+  function taskList(tasks:Array<tasks>) {
 
     if(tasks.length > 0) {
       return(
         <div className={styles.taskList}>
           {tasks.map((task, i) => {
-            content = handleAddNewTask
             i = task.id
             return (
               <form key={i} className={styles.tasks}>
                 <input type="checkbox" />
-                <p>{content}</p>
+                <p>{task.content}</p>
                 <Trash size={20} className={styles.trash}/>
               </form>
             )
@@ -67,10 +64,20 @@ export const Task = ({ content }) => {
   
   return(
     <article className={styles.task}>
-      <form className={styles.addTask} onSubmit={handleAddNewTask}>
-        <input type="text" name="task" placeholder="Adicione uma nova tarefa"/>
-        <button>Criar <PlusCircle size={16} weight="bold"/></button>
-      </form>
+        <div className={styles.addTask}>
+          <input 
+          value={inputValue}
+          onInput={(e) => {
+            setInputValue(e.currentTarget.value)
+          }}
+          type="text" 
+          name="task" 
+          placeholder="Adicione uma nova tarefa"
+          />       
+          <button onClick={() => handleAddNewTask()}>
+            Criar <PlusCircle size={16} weight="bold" />
+          </button>
+        </div>
 
       <div className={styles.taskMain}>
         <div className={styles.task}>
@@ -78,7 +85,7 @@ export const Task = ({ content }) => {
             <p>Tarefas criadas <span>0</span></p>
             <p>Tarefas concluídas <span>0</span></p>
           </div>
-          {taskList(tasks, handleAddNewTask)}
+          {taskList(tasks)}
         </div>
       </div>
 
