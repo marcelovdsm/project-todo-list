@@ -2,7 +2,7 @@ import { ChangeEvent, useState } from 'react'
 import styles from './Task.module.css'
 import { PlusCircle, ClipboardText, Trash } from "phosphor-react"
 
-export const Task = () => {
+export const Task = ({ content }) => {
 
   interface tasks {
   id: number
@@ -27,22 +27,22 @@ export const Task = () => {
   function handleAddNewTask() {
     event.preventDefault()
 
-    setTasks = event.target.task.value
+    const newTaskText = event.target.task.value
 
-    console.log(setTasks);
+    setTasks(newTaskText)
   }
 
-  function taskList(tasks:Array<tasks>) {
+  function taskList(tasks:Array<tasks>, content:string) {
 
     if(tasks.length > 0) {
       return(
         <div className={styles.taskList}>
-          {tasks.map((task, i) => {
-            i = task.id
+          {tasks.map((task) => {
+            content = task.content
             return (
-              <form key={i} className={styles.tasks}>
+              <form className={styles.tasks}>
                 <input type="checkbox" />
-                <p key={i}>{task.content}</p>
+                <p>{content}</p>
                 <Trash size={20} className={styles.trash}/>
               </form>
             )
@@ -75,7 +75,7 @@ export const Task = () => {
             <p>Tarefas criadas <span>0</span></p>
             <p>Tarefas concluídas <span>0</span></p>
           </div>
-          {taskList(tasks)}
+          {taskList(tasks, handleAddNewTask)}
         </div>
       </div>
 
