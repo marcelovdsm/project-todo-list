@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 import styles from './Task.module.css'
 import { PlusCircle, ClipboardText, Trash } from "phosphor-react"
 
@@ -7,9 +7,12 @@ export const Task = () => {
   interface tasks {
   id: number
   content: string
+  done: boolean
   }
 
   const [inputValue, setInputValue] = useState<any>("")
+
+  const [taskDone, setTaskDone] = useState<boolean>(false)
 
   let [tasks, setTasks] = useState([
     {
@@ -30,7 +33,20 @@ export const Task = () => {
     setTasks([...tasks, { id: tasks.length, content: inputValue }])
 
     setInputValue("")
+    
   }
+  
+  function handleVerifyTask(event) {
+    setTaskDone(event.target.checked)
+    console.log(setTaskDone);
+
+    let allDoneTasks = 0
+
+    if(setTaskDone) {
+      allDoneTasks += 1
+    }
+  }
+
 
   function taskList(tasks:Array<tasks>) {
 
@@ -41,7 +57,7 @@ export const Task = () => {
             i = task.id
             return (
               <form key={i} className={styles.tasks}>
-                <input type="checkbox" />
+                <input type="checkbox" onChange={handleVerifyTask}/>
                 <p>{task.content}</p>
                 <Trash size={20} className={styles.trash}/>
               </form>
@@ -59,6 +75,7 @@ export const Task = () => {
       )
     }
   }
+
 
 
   
@@ -82,8 +99,8 @@ export const Task = () => {
       <div className={styles.taskMain}>
         <div className={styles.task}>
           <div className={styles.taskHeader}>
-            <p>Tarefas criadas <span>0</span></p>
-            <p>Tarefas concluídas <span>0</span></p>
+            <p>Tarefas criadas <span>{tasks.length}</span></p>
+            <p>Tarefas concluídas <span>{} de {tasks.length}</span></p>
           </div>
           {taskList(tasks)}
         </div>
