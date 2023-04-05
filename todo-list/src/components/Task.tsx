@@ -1,4 +1,4 @@
-import { ChangeEvent, InputHTMLAttributes, useState } from 'react'
+import { useState } from 'react'
 import styles from './Task.module.css'
 import { PlusCircle, ClipboardText, Trash } from "phosphor-react"
 
@@ -16,9 +16,7 @@ export const Task = () => {
 
   const [taskDone, setTaskDone] = useState(false)
 
-  let [tasks, setTasks] = useState([ 
-
-  ])
+  let [tasks, setTasks] = useState([])
 
   function handleAddNewTask() {
     setTasks([...tasks, { id: tasks.length, content: inputValue, done: taskDone }])
@@ -30,6 +28,17 @@ export const Task = () => {
   function handleVerifyTask() {
     setTaskDone(current => !current)
   }
+
+  function deleteTask( taskToDelete:tasks) {
+
+
+    const tasksWithoutDeletedOne = tasks.filter(tasks => {
+      return tasks !== taskToDelete
+    })
+
+    setTasks(tasksWithoutDeletedOne)
+  }
+
 
 
   function taskList(tasks:Array<tasks>) {
@@ -47,7 +56,11 @@ export const Task = () => {
                 onChange={handleVerifyTask}
                 />
                 <p>{task.content}</p>
-                <Trash size={20} className={styles.trash}/>
+                <Trash 
+                onClick={() => {deleteTask( task )}}
+                size={20} 
+                className={styles.trash}
+                />
               </div>
             )
           })}
