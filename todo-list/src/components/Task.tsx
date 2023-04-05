@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import styles from './Task.module.css'
 import { PlusCircle, ClipboardText, Trash } from "phosphor-react"
 
@@ -12,39 +12,34 @@ export const Task = () => {
 
   const [inputValue, setInputValue] = useState<any>("")
 
-  const [taskDone, setTaskDone] = useState<boolean>(false)
+  const [taskDone, setTaskDone] = useState(false)
 
-  let [tasks, setTasks] = useState([
-    {
-      id: 1,
-      content: 'Lavar o carro',
-    },
-    {
-      id: 2,
-      content: 'Estudar',
-    },
-    {
-      id: 3,
-      content: 'Beber água',
-    }
+  let doneTask = 0
+
+  let [tasks, setTasks] = useState([ 
+
   ])
 
   function handleAddNewTask() {
-    setTasks([...tasks, { id: tasks.length, content: inputValue }])
+    setTasks([...tasks, { id: tasks.length, content: inputValue, done: taskDone }])
 
     setInputValue("")
     
   }
   
-  function handleVerifyTask(event) {
-    setTaskDone(event.target.checked)
-    console.log(setTaskDone);
+  function handleVerifyTask(event:ChangeEvent) {
 
-    let allDoneTasks = 0
-
-    if(setTaskDone) {
-      allDoneTasks += 1
+    if((event.target as HTMLInputElement).checked) {
+      doneTask++
     }
+
+    if(doneTask === 1) {
+      (event.target as HTMLInputElement).value === true
+    }
+
+    console.log(doneTask)
+
+    setTaskDone(current => !current)
   }
 
 
@@ -56,11 +51,15 @@ export const Task = () => {
           {tasks.map((task, i) => {
             i = task.id
             return (
-              <form key={i} className={styles.tasks}>
-                <input type="checkbox" onChange={handleVerifyTask}/>
+              <div key={i} className={styles.tasks}>
+                <input 
+                type="checkbox" 
+                value={taskDone} 
+                onChange={handleVerifyTask}
+                />
                 <p>{task.content}</p>
                 <Trash size={20} className={styles.trash}/>
-              </form>
+              </div>
             )
           })}
         </div>
@@ -100,7 +99,7 @@ export const Task = () => {
         <div className={styles.task}>
           <div className={styles.taskHeader}>
             <p>Tarefas criadas <span>{tasks.length}</span></p>
-            <p>Tarefas concluídas <span>{} de {tasks.length}</span></p>
+            <p>Tarefas concluídas <span>{doneTask} de {tasks.length}</span></p>
           </div>
           {taskList(tasks)}
         </div>
