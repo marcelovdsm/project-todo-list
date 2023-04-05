@@ -43,7 +43,7 @@ export const Task = () => {
               <div key={i} className={styles.tasks}>
                 <input 
                 type="checkbox" 
-                value={taskDone} 
+                value={String(taskDone)} 
                 onChange={handleVerifyTask}
                 />
                 <p>{task.content}</p>
