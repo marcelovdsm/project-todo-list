@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, InputHTMLAttributes, useState } from 'react'
 import styles from './Task.module.css'
 import { PlusCircle, ClipboardText, Trash } from "phosphor-react"
 
@@ -10,11 +10,11 @@ export const Task = () => {
   done: boolean
   }
 
+  let taskDoneCheckbox = document.querySelectorAll('input[type=checkbox]:checked')
+
   const [inputValue, setInputValue] = useState<any>("")
 
   const [taskDone, setTaskDone] = useState(false)
-
-  let doneTask = 0
 
   let [tasks, setTasks] = useState([ 
 
@@ -27,18 +27,7 @@ export const Task = () => {
     
   }
   
-  function handleVerifyTask(event:ChangeEvent) {
-
-    if((event.target as HTMLInputElement).checked) {
-      doneTask++
-    }
-
-    if(doneTask === 1) {
-      (event.target as HTMLInputElement).value === true
-    }
-
-    console.log(doneTask)
-
+  function handleVerifyTask() {
     setTaskDone(current => !current)
   }
 
@@ -99,7 +88,7 @@ export const Task = () => {
         <div className={styles.task}>
           <div className={styles.taskHeader}>
             <p>Tarefas criadas <span>{tasks.length}</span></p>
-            <p>Tarefas concluídas <span>{doneTask} de {tasks.length}</span></p>
+            <p>Tarefas concluídas <span>{taskDoneCheckbox.length} de {tasks.length}</span></p>
           </div>
           {taskList(tasks)}
         </div>
